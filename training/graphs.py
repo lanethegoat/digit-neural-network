@@ -29,7 +29,7 @@ GRID = "#e4e3df"
 BLUE = "#2a78d6"      # with augmentation
 ORANGE = "#eb6834"    # without augmentation
 BLUE_SCALE = ["#fcfcfb", "#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
-ONE_PASS = 937 * 64   # training images in one pass through MNIST
+ONE_EPOCH = 937 * 64   # training images in one epoch (one pass through MNIST)
 
 plt.rcParams.update({
     "font.family": "DejaVu Sans", "font.size": 12, "text.color": TEXT,
@@ -60,8 +60,8 @@ def learning_curve(with_aug, without_aug):
         ax.annotate(f"{mean[-1]:.1f}%", (seen[-1], mean[-1]), xytext=(6, label_offset),
                     textcoords="offset points", va="center", color=TEXT, fontsize=11)
 
-    ax.axvline(ONE_PASS, color=TEXT_LIGHT, linewidth=1, linestyle="--")
-    ax.text(ONE_PASS * 1.08, 14, "augmentation starts\n(pass 2)", color=TEXT_LIGHT, fontsize=10)
+    ax.axvline(ONE_EPOCH, color=TEXT_LIGHT, linewidth=1, linestyle="--")
+    ax.text(ONE_EPOCH * 1.08, 14, "augmentation starts\n(epoch 2)", color=TEXT_LIGHT, fontsize=10)
     ax.set_xscale("log")
     ax.set_xticks([32, 100, 1000, 10000, 100000, 479744])
     ax.set_xticklabels(["0", "100", "1,000", "10,000", "100,000", "479,744"])
@@ -70,7 +70,7 @@ def learning_curve(with_aug, without_aug):
     ax.set_ylabel("Test accuracy (%)")
     ax.set_title("Test accuracy during training (mean of 5 seeds; band = lowest to highest seed)",
                  loc="left", fontsize=13)
-    ax.text(40, 40, "Both versions are trained the same way\nuntil pass 2, so the lines overlap there.",
+    ax.text(40, 40, "Both versions are trained the same way\nuntil epoch 2, so the lines overlap there.",
             color=TEXT_LIGHT, fontsize=10)
     ax.legend(loc="upper left", frameon=False)
     save(fig, "learning_curve.png")
